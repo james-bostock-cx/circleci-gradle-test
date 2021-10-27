@@ -30,3 +30,6 @@ workflows:
   checkout-build-test:
     jobs:
       - gradle/test
+  ast-scan:
+    jobs:
+      - ast-scan
