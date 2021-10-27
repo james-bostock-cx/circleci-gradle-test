@@ -1,6 +1,31 @@
 version: 2.1
+
+jobs:
+  ast-scan:
+    docker:
+      - image: alpine:3.14
+    steps:
+      - checkout
+      - run:
+          name: Install cURL
+          command: |
+            apk --no-cache add curl
+      - run:
+          name: Install AST CLI
+          command: |
+            curl -L https://github.com/Checkmarx/ast-cli/releases/download/2.0.3/ast-cli_2.0.3_linux_x64.tar.gz
+      - run:
+          name: Extract AST CLI
+          command: |
+            tar zxf ast-cli_2.0.3_linux_x64.tar.gz
+      - run:
+          name: Show what's here
+          command: |
+            ls -al
+
 orbs:
   gradle: circleci/gradle@2.2.0
+
 workflows:
   checkout-build-test:
     jobs:
