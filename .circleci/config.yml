@@ -7,21 +7,13 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install cURL
+          name: AST Scan
           command: |
             apk --no-cache add curl
-      - run:
-          name: Install AST CLI
-          command: |
-            curl -L --output ast-cli_2.0.3_linux_x64.tar.gz https://github.com/Checkmarx/ast-cli/releases/download/2.0.3/ast-cli_2.0.3_linux_x64.tar.gz
-      - run:
-          name: Extract AST CLI
-          command: |
-            tar zxf ast-cli_2.0.3_linux_x64.tar.gz
-      - run:
-          name: Show what's here
-          command: |
-            ls -al
+            TMPDIR=$(mktemp -d)
+            curl -L --output ${TMPDIR}/ast-cli_2.0.3_linux_x64.tar.gz https://github.com/Checkmarx/ast-cli/releases/download/2.0.3/ast-cli_2.0.3_linux_x64.tar.gz
+            tar zxf ${TMPDIR}/ast-cli_2.0.3_linux_x64.tar.gz -C ${TMPDIR}
+            ${TMPDIR}/cx --apikey "${AST_API_KEY}" --base-uri "${AST_BASE_URI}" --tenant "${AST_TENANT}" scan create -s . --project-name "${CIRCLE_PROJECT}" --scan-types sast
 
 orbs:
   gradle: circleci/gradle@2.2.0
