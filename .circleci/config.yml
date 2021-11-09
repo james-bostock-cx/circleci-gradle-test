@@ -9,7 +9,7 @@ jobs:
       - run:
           name: AST Scan
           command: |
-            /app/bin/cx --debug --client-id "${AST_CLIENT_ID}" --client-secret "${AST_CLIENT_SECRET}" --base-uri "${AST_BASE_URI}" --tenant "${AST_TENANT}" scan create -s . --project-name "${CIRCLE_PROJECT_REPONAME}" --scan-types sast
+            /app/bin/cx --debug --client-id "${AST_CLIENT_ID}" --client-secret "${AST_CLIENT_SECRET}" --base-uri "${AST_BASE_URI}" --tenant "${AST_TENANT}" scan create -s . --project-name "${CIRCLE_PROJECT_REPONAME}" --branch "${CIRCLE_BRANCH}" --scan-types sast
 
 orbs:
   gradle: circleci/gradle@2.2.0
