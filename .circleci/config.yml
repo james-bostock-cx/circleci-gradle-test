@@ -1,5 +1,7 @@
 version: 2.1
 
+# Note that the environment variables used for the ast-scan job are defined in CircleCI, not in GitHub.
+
 jobs:
   ast-scan:
     docker:
